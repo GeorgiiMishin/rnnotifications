@@ -15,6 +15,7 @@ if linkage != nil
 end
 
 target 'RNNotifcations' do
+  use_frameworks! :linkage => :static
   config = use_native_modules!
 
   use_react_native!(

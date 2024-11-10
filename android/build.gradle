@@ -10,12 +10,26 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {url 'https://developer.huawei.com/repo/'}
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        classpath("com.android.tools.build:gradle:7.4.2")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+
+        classpath "com.google.gms:google-services:4.4.2"
+        classpath "com.huawei.agconnect:agcp:1.9.1.301"
     }
 }
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        // Configure the Maven repository address for the HMS Core SDK.
+        maven {url 'https://developer.huawei.com/repo/'}
+    }
+}
+
 
 apply plugin: "com.facebook.react.rootproject"

@@ -1,6 +1,8 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: "com.google.gms.google-services"
+apply plugin: 'com.huawei.agconnect'
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -77,6 +79,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
+
     namespace "com.rnnotifcations"
     defaultConfig {
         applicationId "com.rnnotifcations"
@@ -93,6 +96,21 @@ android {
             keyPassword 'android'
         }
     }
+
+    flavorDimensions += "store"
+
+    productFlavors {
+        huawei {
+            dimension 'store'
+            buildConfigField "String", "StoreType", '"Huawei"'
+        }
+
+        google {
+            dimension 'store'
+            buildConfigField "String", "StoreType", '"Google"'
+        }
+    }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -116,4 +134,10 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    googleImplementation platform('com.google.firebase:firebase-bom:33.5.1')
+    googleImplementation('com.google.firebase:firebase-messaging:24.0.3')
+    huaweiImplementation('com.huawei.hms:hmscoreinstaller:6.7.0.300')
+    huaweiImplementation("com.huawei.hms:push:6.12.0.300")
 }
+

@@ -6,6 +6,7 @@ const {RemoteMessagingModule: RemoteMessagingModuleNative} = NativeModules;
 const eventEmitter = new NativeEventEmitter(RemoteMessagingModuleNative);
 
 interface IModule {
+  requestPermissions(): Promise<boolean>;
   getToken(): Promise<string>;
   getInitialNotification(): Promise<RemoteMessage>;
   onTokenChanged: (cb: (newToken: string) => void) => () => void;
@@ -16,6 +17,7 @@ interface IModule {
 }
 
 export const RemoteMessagingModule: IModule = {
+  requestPermissions: () => RemoteMessagingModuleNative.requestPermissions(),
   getToken: () => RemoteMessagingModuleNative.getToken(),
   getInitialNotification: () =>
     RemoteMessagingModuleNative.getInitialNotification(),

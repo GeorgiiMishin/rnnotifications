@@ -18,8 +18,8 @@ const App: React.FC = () => {
   React.useEffect(() => {
     const init = async () => {
       try {
+        await RemoteMessagingModule.requestPermissions();
         const token = await RemoteMessagingModule.getToken();
-        console.log(token);
         setRemoteToken(token);
       } catch (ex) {
         console.log(ex);

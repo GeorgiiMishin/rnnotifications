@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import "RemoteMessagingFacade.h"
 
 @implementation AppDelegate
 
@@ -10,7 +11,8 @@
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
-
+  [[RemoteMessagingFacade shared] setup: application];
+  
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
@@ -28,4 +30,15 @@
 #endif
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+  [[RemoteMessagingFacade shared] application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  [[RemoteMessagingFacade shared] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
 @end
+
